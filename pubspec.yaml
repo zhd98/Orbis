@@ -22,8 +22,10 @@ dependencies:
   win32_registry: ^1.1.2
   # Markdown parsing (stable) used for .md import
   markdown: ^7.0.0
-  # Delta type used by flutter_quill (quill_delta is not re-exported)
-  quill_delta: ^4.1.0
+  # Delta type used by flutter_quill. NOTE: the old `quill_delta` package is
+  # abandoned (last release 2021, Dart 2 only); flutter_quill 11.x uses
+  # `dart_quill_delta` and does not re-export its types.
+  dart_quill_delta: ^10.0.0
 
 dev_dependencies:
   flutter_test:
