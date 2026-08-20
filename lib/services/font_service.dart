@@ -1,4 +1,4 @@
-import 'package:win32_registry/win32_registry.dart' as wreg;
+import 'package:win32_registry/win32_registry.dart';
 
 /// Enumerates installed Windows fonts via the registry.
 ///
@@ -22,24 +22,22 @@ class FontService {
     if (_enumerated) return;
     _enumerated = true;
 
-    wreg.RegistryKey? key;
     try {
-      key = wreg.Registry.openPath(
-        wreg.RegistryHive.localMachine,
-        wreg.Path(_fontsKeyPath),
-      );
-      for (final value in key.values) {
-        // Font entries are REG_SZ; skip anything else defensively.
-        if (value.type != wreg.RegistryValueType.string &&
-            value.type != wreg.RegistryValueType.expandString) {
-          continue;
+      final key = LOCAL_MACHINE.open(_fontsKeyPath);
+      try {
+        // `values` yields records of (name, RegistryValue); font entries are
+        // all REG_SZ, so we only care about StringValue.
+        for (final entry in key.values) {
+          final value = entry.value;
+          if (value is StringValue) {
+            _addFont(entry.name, value.value);
+          }
         }
-        _addFont(value.name, value.asString);
+      } finally {
+        key.close();
       }
     } catch (_) {
       // Key missing or access denied — treat as "no enumerable fonts".
-    } finally {
-      key?.close();
     }
   }
 

@@ -19,7 +19,7 @@ dependencies:
   # Native open/save dialogs on Windows
   file_selector: ^1.0.0
   # Enumerate installed fonts via the Windows registry
-  win32_registry: ^1.1.2
+  win32_registry: ^3.0.3
   # Markdown parsing (stable) used for .md import
   markdown: ^7.0.0
   # Delta type used by flutter_quill. NOTE: the old `quill_delta` package is
