@@ -9,7 +9,7 @@ import '../providers/settings_provider.dart';
 import '../services/font_service.dart';
 import '../services/markdown_converter.dart';
 import 'settings/settings_panel.dart';
-import 'widgets/wysiwyg_editor.dart';
+import '../editors/wysiwyg_editor.dart';
 
 /// Minimal editor surface: a WYSIWYG area plus Open / Save / Settings actions.
 class HomeScreen extends ConsumerStatefulWidget {
@@ -57,10 +57,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   Future<void> _save() async {
     const group = XTypeGroup(label: 'Markdown', extensions: ['md']);
-    final path = await saveFile(
+    final location = await getSaveLocation(
       suggestedName: 'untitled.md',
       acceptedTypeGroups: [group],
     );
+    if (location == null) return;
+    final path = location.path;
     if (path == null) return;
     final markdown = deltaToMarkdown(_controller.document);
     await File(path).writeAsString(markdown);

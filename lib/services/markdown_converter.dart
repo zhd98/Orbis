@@ -1,5 +1,6 @@
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:markdown/markdown.dart' as md;
+import 'package:quill_delta/quill_delta.dart';
 
 /// Lightweight, dependency-free converters between flutter_quill [Document]
 /// (Delta) and Markdown text, covering the subset used by the minimal editor:

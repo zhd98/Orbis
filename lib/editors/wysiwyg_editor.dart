@@ -3,8 +3,9 @@ import 'package:flutter_quill/flutter_quill.dart';
 
 /// A minimal WYSIWYG Markdown editor built on flutter_quill.
 ///
-/// The chosen font family and size are applied through [DefaultStyles] so that
-/// headings, paragraphs, quotes and code all honor the user's selection.
+/// The chosen font family and size are applied through [DefaultStyles] so
+/// that headings, paragraphs, quotes and code all honor the user's
+/// selection. Unspecified styles fall back to the editor's defaults.
 class WysiwygEditor extends StatelessWidget {
   final QuillController controller;
   final FocusNode focusNode;
@@ -29,8 +30,8 @@ class WysiwygEditor extends StatelessWidget {
           fontWeight: w,
           color: baseColor,
         );
-    final vSpace = const VerticalSpacing(0, 6);
-    final hSpace = const HorizontalSpacing(0, 0);
+    const vSpace = VerticalSpacing(0, 6);
+    const hSpace = HorizontalSpacing(0, 0);
     DefaultTextBlockStyle block(TextStyle style) => DefaultTextBlockStyle(
           style,
           hSpace,
@@ -43,8 +44,7 @@ class WysiwygEditor extends StatelessWidget {
       fontSize: fontSize,
       backgroundColor: Colors.grey.withOpacity(0.12),
     );
-    return DefaultStyles(
-      base: block(s(fontSize)),
+    final custom = DefaultStyles(
       paragraph: block(s(fontSize)),
       h1: block(s(fontSize * 1.8, FontWeight.bold)),
       h2: block(s(fontSize * 1.5, FontWeight.bold)),
@@ -66,9 +66,11 @@ class WysiwygEditor extends StatelessWidget {
           ),
         ),
       ),
-      codeBlock: block(mono),
-      code: mono,
+      code: block(mono),
     );
+    // Start from the theme defaults and overlay our overrides so that no
+    // style slot is ever left null.
+    return DefaultStyles.getInstance(context).merge(custom);
   }
 
   @override
