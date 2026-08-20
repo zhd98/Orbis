@@ -1,0 +1,32 @@
+name: ignis
+description: "Ignis — a minimal WYSIWYG Markdown editor for Windows 11."
+publish_to: 'none'
+version: 0.1.0+1
+
+environment:
+  sdk: '>=3.3.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  # WYSIWYG editor core (rich-text, inline rendering)
+  flutter_quill: ^11.0.0
+  # State management
+  flutter_riverpod: ^2.5.0
+  # Local persistence for settings
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  # Native open/save dialogs on Windows
+  file_selector: ^1.0.0
+  # Enumerate installed fonts via the Windows registry
+  win32: ^5.0.0
+  # Markdown parsing (stable) used for .md import
+  markdown: ^7.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true

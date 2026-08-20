@@ -1,0 +1,21 @@
+# This file tracks properties of this Flutter project.
+# Used by the Flutter tool to assess project health.
+#
+# This file should be checked into version control.
+
+version:
+  revision: null
+  channel: stable
+
+project_type: app
+
+# Tracks metadata for the flutter migrate command
+migration:
+  platforms:
+    - platform: windows
+      create_revision: null
+      base_revision: null
+
+  # User provided section
+  unmanaged_paths:
+    - 'lib/main.dart'
